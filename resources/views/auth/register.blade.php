@@ -46,7 +46,13 @@
 								<div class="my_profile_setting_input form-group">
 							    	<label for="listingPlace">Email</label>
 							    	<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required >
-								</div>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                </div>
 							</div>
 
 
@@ -55,7 +61,12 @@
 								<div class="my_profile_setting_input form-group">
 							    	<label for="listingPlace">Phone Number</label>
 							    	<input name="phone" type="number"class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required >
-								</div>
+                                    @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
 							</div>
 
 
@@ -69,10 +80,10 @@
 								<div class="my_profile_setting_input form-group">
 							    	<label for="listingPlace">Membership Type</label>
 							    	<select name="member_type" class="form-control @error('member_type') is-invalid @enderror" value="{{ old('member_type') }}" required>
-							   <option value="Enterprise_Rep">Enterprise Representative</option>
-							    <option value="Investor_Rep">Investor Representative</option>
-							    <option value="Accredited_Rep">Accredited Investor</option>
-							    <option value="Incubator_Rep">Incubator</option>
+							    <option value="1">Enterprise Representative</option>
+							    <option value="2">Investor Representative</option>
+							    <option value="3">Accredited Investor</option>
+							    <option value="4">Incubator</option>
 							    	</select>
 								</div>
 							</div>

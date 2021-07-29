@@ -52,21 +52,34 @@
 		            </li>
 
                     @if(Auth::check())
+
                     <li class="user_setting">
 						<div class="dropdown">
-	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown"><img class="rounded-circle" src="{{ asset('assets/front/images/team/e1.png')}}" alt="e1.png"> <span class="dn-1366"> Cameron Williamson <span class="fa fa-angle-down"></span></span></a>
+	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown">
+                                @if(Auth::user()->avatar == "")
+                                <img class="rounded-circle" src="{{ asset('images/user.png')}}" height="30px" width="30px">
+                                @else
+                                <img class="rounded-circle" src="{{ Auth::user()->avatar}}" height="50px">
+                                @endif
+                                <span class="dn-1366"> {{ Auth::user()->name}} <span class="fa fa-angle-down"></span></span></a>
+
+
 						    <div class="dropdown-menu">
 						    	<div class="user_set_header">
-						    		<img class="float-left" src="{{ asset('assets/front/images/team/e1.png')}}" alt="e1.png">
-							    	<p>Cameron Williamson <br><span class="address">{{ Auth::user()->email}}</a></span></p>
-						    	</div>
-						    	<div class="user_setting_content">
-									<a class="dropdown-item active" href="{{ route('dashboard') }}">My Profile</a>
+                                    @if(Auth::user()->avatar == "")
+						    		<img class="float-left" src="{{ asset('images/user.png')}}" height="50px">
+                                    @else
+                                    <img class="float-left" src="{{ Auth::user()->avatar}}" height="50px">
+                                    @endif
 
-                                    <form  method="POST" id="logout-form" action="{{ route('logout')}}">@csrf</form>
-									<a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+							    	<p>{{ Auth::user()->name}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
+                                    <div class="user_setting_content">
+                                        <a class="dropdown-item active" href="{{ route('profile') }}">My Profile</a>
 
-						    	</div>
+                                        <form  method="POST" id="logout-form" action="{{ route('logout')}}">@csrf</form>
+                                        <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
+
+                                    </div>
 						    </div>
 						</div>
 			        </li>

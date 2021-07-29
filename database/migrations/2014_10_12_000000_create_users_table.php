@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->boolean('enterprise_rep')->default(false);
             $table->boolean('accredited')->default(false);
             $table->boolean('incubator')->default(false);
+            $table->string('avatar')->default('user.jpg');
            ;
 
             $table->rememberToken();

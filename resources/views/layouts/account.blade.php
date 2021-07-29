@@ -17,6 +17,8 @@
 
 
 
+ <link rel="stylesheet" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+
 <link href="{{ asset('assets/front/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/front/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/front/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
@@ -30,7 +32,7 @@
 <div class="wrapper">
 	<div class="preloader"></div>
 
-@include('includes.admin.headerNavigation')
+@include('includes.users.headerNavigation')
 
 	<!-- Our Dashbord -->
 	<section class="extra-dashboard-menu dn-992">
@@ -39,11 +41,11 @@
 				<div class="col-lg-12">
 					<div class="ed_menu_list mt5">
 						<ul>
-							<li><a class="" href="user_dashboard.php"><span class="flaticon-web-page"></span> Dashboard</a></li>
-							<li><a href=""><span class="flaticon-list"></span>Enterprises</a></li>
-							<li><a href="analysts.php"><span class="flaticon-list"></span>Analysts</a></li>
-							<li><a href="investors.php"><span class="fa fa-list"></span>Investors</a></li>
-							<li><a href="incubators.php"><span class="fa fa-list"></span>incubators</a></li>
+							<li><a class="" href="{{ route('investorDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+							<li><a href="{{ route('investorDashboard') }}"><span class="flaticon-list"></span>Enterprises</a></li>
+							<li><a href="{{ route('analysts') }}"><span class="flaticon-list"></span>Analysts</a></li>
+							<li><a href="{{ route('investors') }}"><span class="fa fa-list"></span>Investors</a></li>
+							<li><a href="{{ route('incubators') }}"><span class="fa fa-list"></span>incubators</a></li>
 							<li><a href=""><span class="fa fa-check-circle"></span> Pool</a></li>
 							<li><a href=""><span class="fa fa-close"></span> Unpool</a></li>
 						</ul>
@@ -62,13 +64,13 @@
 						<div class="dropdown">
 							<button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
 							<ul id="myDropdown" class="dropdown-content">
-								<li><a class="active" href="user_dashboard.php"><span class="flaticon-web-page"></span> Dashboard</a></li>
-							<li><a href=""><span class="flaticon-list"></span>Enterprises</a></li>
-							<li><a href="analysts.php"><span class="flaticon-list"></span>Analysts</a></li>
-							<li><a href="investors.php"><span class="fa fa-list"></span>Investors</a></li>
-							<li><a href="incubators.php"><span class="fa fa-list"></span>incubators</a></li>
-							<li><a href=""><span class="fa fa-check-circle"></span> Pool</a></li>
-							<li><a href=""><span class="fa fa-close"></span> Unpool</a></li>
+								<li><a class="active" href="{{ route('investorDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+                                <li><a href="{{ route('investorDashboard') }}"><span class="flaticon-list"></span>Enterprises</a></li>
+                                <li><a href="{{ route('analysts') }}"><span class="flaticon-list"></span>Analysts</a></li>
+                                <li><a href="{{ route('investors') }}"><span class="fa fa-list"></span>Investors</a></li>
+                                <li><a href="{{ route('incubators') }}"><span class="fa fa-list"></span>incubators</a></li>
+                                <li><a href=""><span class="fa fa-check-circle"></span> Pool</a></li>
+                                <li><a href=""><span class="fa fa-close"></span> Unpool</a></li>
 							</ul>
 						</div>
 					</div>
@@ -213,7 +215,7 @@
 <script src="{{ asset('assets/front/js/dashboard-script.js')}}"></script>
 <!-- Custom script for all pages -->
 <script src="{{ asset('assets/front/js/script.js')}}"></script>
-
+<script src="{{ asset('assets/front/js/smartuploader.js')}}"></script>
 
 
 
@@ -235,6 +237,55 @@
     <script src="{{ asset('assets/front/datatables/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('assets/front/datatables/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('assets/front/datatables/custom/custom-table-datatable.js')}}"></script>
+
+
+
+    <script src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+
+
+
+    <script>
+               $(document).ready(function(){
+                   // Basic
+                   $('.dropify').dropify();
+
+                   // Translated
+                   $('.dropify-fr').dropify({
+                       messages: {
+                           default: 'Glissez-déposez un fichier ici ou cliquez',
+                           replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                           remove:  'Supprimer',
+                           error:   'Désolé, le fichier trop volumineux'
+                       }
+                   });
+
+                   // Used events
+                   var drEvent = $('#input-file-events').dropify();
+
+                   drEvent.on('dropify.beforeClear', function(event, element){
+                       return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                   });
+
+                   drEvent.on('dropify.afterClear', function(event, element){
+                       alert('File deleted');
+                   });
+
+                   drEvent.on('dropify.errors', function(event, element){
+                       console.log('Has Errors');
+                   });
+
+                   var drDestroy = $('#input-file-to-destroy').dropify();
+                   drDestroy = drDestroy.data('dropify')
+                   $('#toggleDropify').on('click', function(e){
+                       e.preventDefault();
+                       if (drDestroy.isDropified()) {
+                           drDestroy.destroy();
+                       } else {
+                           drDestroy.init();
+                       }
+                   })
+               });
+           </script>
 
 </body>
 </html>

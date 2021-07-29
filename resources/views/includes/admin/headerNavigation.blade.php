@@ -51,11 +51,24 @@
 
 	                           <li class="user_setting">
 						<div class="dropdown">
-	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown"><img class="rounded-circle" src="{{ asset('assets/front/images/team/e1.png')}}" alt="e1.png"> <span class="dn-1366"> {{ Auth::user()->name}} <span class="fa fa-angle-down"></span></span></a>
+	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown">
+                                {{-- @if( Auth::guard('admin')->user()->avatar == "")
+                                <img class="rounded-circle" src="{{ asset('images/user.png')}}" height="30px" width="30px">
+                                @else
+                                <img class="rounded-circle" src="{{ Auth::admin()->avatar}}" height="50px">
+                                @endif
+                                <span class="dn-1366"> {{ Auth::admin()->name}} <span class="fa fa-angle-down"></span></span></a> --}}
+
+
 						    <div class="dropdown-menu">
 						    	<div class="user_set_header">
-						    		<img class="float-left" src="{{ asset('assets/front/images/team/e1.png')}}" alt="e1.png">
-							    	<p>{{ Auth::user()->name}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
+                                    {{-- @if(Auth::admin()->avatar == "")
+						    		<img class="float-left" src="{{ asset('images/user.png')}}" height="50px">
+                                    @else
+                                    <img class="float-left" src="{{ Auth::admin()->avatar}}" height="50px">
+                                    @endif --}}
+
+							    	<p>{{  Auth::guard('admin')->user()->name}}<br><span class="address">{{  Auth::guard('admin')->user()->email}}</a></span></p>
                                     <div class="user_setting_content">
                                         <a class="dropdown-item active" href="{{ route('dashboard') }}">My Profile</a>
 
