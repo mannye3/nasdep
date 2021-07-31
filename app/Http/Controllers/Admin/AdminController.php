@@ -9,8 +9,12 @@ use App\Models\Company;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\Industry;
+use App\Models\Sector;
 use App\Models\Enterprise;
 use App\Models\Investor;
+use App\Models\Analyst;
+
+use DB;
 
 
 
@@ -220,7 +224,7 @@ class AdminController extends Controller
 
 
 
-            
+
 
             public function changeInvestorStatus(Request $request, $id)
             {
@@ -248,6 +252,201 @@ class AdminController extends Controller
 
                 return back()->with('success', 'Investor Deleted');
             }
+
+
+
+
+
+
+
+            public function analysts()
+            {
+
+                $analysts = Analyst::all();
+                return view('admin.analysts', compact('analysts'));
+
+            }
+
+
+            public function viewAnalyst($id)
+            {
+
+
+                $company = Company::where('id', $id)->first();
+                // $incubators = Incubator::whereIn('company_id', $company)->get();
+                // $pools = Pool::whereIn('incubator_id', $incubators)->get();
+                // $enterprises = Enterprise::whereIn('company_id', $company)->get();
+                $countries = Country::all();
+                $states = State::all();
+
+
+
+                return view('admin.analyst' , compact('company', 'countries','states'));
+            }
+
+
+
+
+
+            public function changeAnalystStatus(Request $request, $id)
+            {
+                $analyst = Analyst::where('id', $id)->first();
+
+                $analyst->suspended = $request['suspended'];
+
+                $analyst->save();
+
+
+            return back()->with('success', 'Analysts Status Updated');
+
+
+
+            }
+
+
+
+
+
+            public function deleteAnalyst($id)
+            {
+                $analyst = Analyst::where('id', $id)->first();
+                $analyst->delete();
+
+                return back()->with('success', 'Analysts Deleted');
+            }
+
+
+
+
+            public function sectors()
+            {
+
+                $sectors = Sector::all();
+                $industries = Industry::all();
+                return view('admin.sectors', compact('sectors','industries'));
+
+            }
+
+
+
+
+
+
+            public function editSector(Request $request, $id)
+            {
+                $sector = Sector::where('id', $id)->first();
+
+                $sector->name = $request['name'];
+                $sector->industry_id = $request['industry_id'];
+
+                $sector->save();
+
+                return back()->with('success', 'Sector Details Updated');
+
+
+            }
+
+
+
+
+            public function deleteSector($id)
+            {
+                $sector = Sector::where('id', $id)->first();
+                $sector->delete();
+
+                return back()->with('success', 'Sector Deleted');
+            }
+
+
+
+
+
+
+            public function industries()
+            {
+
+
+                $industry = Industry::all();
+                return view('admin.industries', compact('industry'));
+
+            }
+
+
+
+
+
+
+            public function editIndustry(Request $request, $id)
+            {
+                $industries = Industry::where('id', $id)->first();
+
+                $industries->name = $request['name'];
+                $industries->desc = $request['desc'];
+
+                $industries->save();
+
+                return back()->with('success', 'Industry Details Updated');
+
+
+            }
+
+
+
+
+            public function deleteIndustry($id)
+            {
+                $industry = Industry::where('id', $id)->first();
+                $industry->delete();
+
+                return back()->with('success', 'Sector Deleted');
+            }
+
+
+
+
+
+            public function pools()
+            {
+
+
+
+                $pools =  Pool::with('incubator.company')->get();
+               
+                return view('admin.pools', compact('pools'));
+
+            }
+
+
+
+
+            public function viewPool($id)
+            {
+
+
+                $company = Company::where('id', $id)->first();
+                // $incubators = Incubator::whereIn('company_id', $company)->get();
+                // $pools = Pool::whereIn('incubator_id', $incubators)->get();
+                // $enterprises = Enterprise::whereIn('company_id', $company)->get();
+                $countries = Country::all();
+                $states = State::all();
+
+
+
+                return view('admin.pool' , compact('company', 'countries','states'));
+            }
+
+
+
+
+            public function deletePool($id)
+            {
+                $investor = Investor::where('id', $id)->first();
+                $investor->delete();
+
+                return back()->with('success', 'Investor Deleted');
+            }
+
+
 
 
 

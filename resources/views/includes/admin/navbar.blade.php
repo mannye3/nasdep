@@ -95,6 +95,52 @@
 
 
 
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="{{ route('admin.analysts')}}" class="menu-link menu-toggle">
+
+                                    <i class="fas fa-users text-success mr-5"></i>
+
+
+                                        <span class="menu-text">Analysts</span>
+
+                                    </a>
+
+                                </li>
+
+
+
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="{{ route('admin.sectors')}}" class="menu-link menu-toggle">
+
+                                    <i class="fas fa-users text-success mr-5"></i>
+
+
+                                        <span class="menu-text">Sectors</span>
+
+                                    </a>
+
+                                </li>
+
+
+
+
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="{{ route('admin.industries')}}" class="menu-link menu-toggle">
+
+                                    <i class="fas fa-users text-success mr-5"></i>
+
+
+                                        <span class="menu-text">Industries</span>
+
+                                    </a>
+
+                                </li>
+
+
+
+
+
+
                             <li class="menu-section">
                                     <h4 class="menu-text">Trades</h4>
                                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

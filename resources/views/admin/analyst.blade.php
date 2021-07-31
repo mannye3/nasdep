@@ -23,7 +23,7 @@
             <!--begin::Toolbar-->
             <div class="d-flex align-items-center">
                 <!--begin::Button-->
-                <a href=" {{ route('admin.incubators')}}" class="btn btn-default font-weight-bold btn-sm px-3 font-size-base">Back</a>
+                <a href=" {{ route('admin.analysts')}}" class="btn btn-default font-weight-bold btn-sm px-3 font-size-base">Back</a>
                 <!--end::Button-->
                 <!--begin::Dropdown-->
 
@@ -75,8 +75,7 @@
                             <!--begin::Content-->
                             <div class="d-flex align-items-center flex-wrap justify-content-between">
                                 <!--begin::Description-->
-                                <div class="flex-grow-1 font-weight-bold text-dark-50 py-2 py-lg-2 mr-5"><p>
-                                    {!! $company->about !!}</p></div>
+                                <div class="flex-grow-1 font-weight-bold text-dark-50 py-2 py-lg-2 mr-5"><p>{{ $company->about }}</p></div>
                                 <!--end::Description-->
                                 <!--begin::Progress-->
 
@@ -117,7 +116,7 @@
                                             <span class="nav-text">Details</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item mr-3">
+                                    {{-- <li class="nav-item mr-3">
                                         <a class="nav-link" data-toggle="tab" href="#kt_apps_contacts_view_tab_2">
                                             <span class="nav-icon mr-2">
                                                 <span class="svg-icon mr-3">
@@ -152,7 +151,7 @@
                                             </span>
                                             <span class="nav-text">Pools</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item mr-3">
                                         <a class="nav-link" data-toggle="tab" href="#kt_apps_contacts_view_tab_4">
                                             <span class="nav-icon mr-2">
@@ -293,43 +292,7 @@
                                 <div class="tab-pane" id="kt_apps_contacts_view_tab_2" role="tabpanel">
                                     <div class="card-body">
                                         <!--begin: Datatable-->
-
-                                        <table class="table table-separate table-head-custom table-checkable" id="2">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Name</th>
-                                                    {{-- <th>Experience</th>
-													<th>Growth Stage</th>
-													<th>Industry</th>
-													<th></th>
-                                                    <th></th> --}}
-
-
-												</tr>
-											</thead>
-											<tbody>
-
-
-
-                                                @foreach  ($enterprises as $enterprise)
-
-
-												<tr>
-													<td>{{ $loop->iteration }}</td>
-													<td> {{ $enterprises->company->name }}</td>
-													{{-- <td>{{ $enterprises->exp }}</td>
-													<td>{{ $enterprises->growth_stage }}</td>
-													<td>{{ $enterprises->name }}</td>
-
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td> --}}
-												</tr>
-                                                @endforeach
-
-											</tbody>
-										</table>
+                                        sample text
                                         <!--end: Datatable-->
                                     </div>
                                 </div>
@@ -337,45 +300,10 @@
                                 <!--begin::Tab Content-->
                                 <div class="tab-pane" id="kt_apps_contacts_view_tab_3" role="tabpanel">
                                     <div class="card-body">
-                                        <!--begin: Datatable-->
-
-                                        <table class="table table-separate table-head-custom table-checkable" id="kt_datatable1">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Name</th>
-                                                    <th>Experience</th>
-													<th>Growth Stage</th>
-													<th>Industry</th>
-													<th></th>
-                                                    <th></th>
-
-
-												</tr>
-											</thead>
-											<tbody>
 
 
 
-                                                @foreach  ($pools as $pool)
 
-
-												<tr>
-													<td> {{ $loop->iteration }}</td>
-													<td> {{ $pool->name }}</td>
-													<td>{{ $pool->exp }}</td>
-													<td>{{ $pool->growth_stage }}</td>
-													<td>{{ $pool->industry->name }}</td>
-
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-												</tr>
-                                                @endforeach
-
-											</tbody>
-										</table>
-                                        <!--end: Datatable-->
                                     </div>
                                 </div>
                                 <!--end::Tab Content-->
@@ -383,13 +311,13 @@
                                 <div class="tab-pane" id="kt_apps_contacts_view_tab_4" role="tabpanel">
                                     <form  method="POST" action=" {{ route('adminEditCompany', $company->id)}}" enctype="multipart/form-data">
                                         @csrf
-                                    <!--begin::Row-->
+
                                     <div class="row">
 
                                         <div class="col-xl-2"></div>
                                         <div class="col-xl-7">
                                             <div class="my-2">
-                                                <!--begin::Row-->
+
                                                 <div class="row">
                                                     <label class="col-form-label col-3 text-lg-right text-left"></label>
                                                     <div class="col-9">

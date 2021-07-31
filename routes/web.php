@@ -106,6 +106,43 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
       Route::post('investor/{id}/delete', 'AdminController@deleteInvestor')->name('adminDeleteInvestor');
 
 
+
+
+
+
+      // Analysts//
+      Route::get('/analysts', 'AdminController@analysts')->name('admin.analysts');
+      Route::get('analyst/{id}/view', 'AdminController@viewAnalyst')->name('adminViewAnalyst');
+      Route::post('analyst/{id}/status', 'AdminController@changeAnalystStatus')->name('statusAnalysts');
+      Route::post('analyst/{id}/delete', 'AdminController@deleteAnalyst')->name('adminDeleteAnalyst');
+
+
+
+
+      // Sectors//
+      Route::get('/sectors', 'AdminController@sectors')->name('admin.sectors');
+      Route::post('sector/{id}/edit', 'AdminController@editSector')->name('editsector');
+      Route::post('sector/{id}/delete', 'AdminController@deleteSector')->name('deletesector');
+
+
+
+
+
+
+      // Industries//
+      Route::get('/industries', 'AdminController@industries')->name('admin.industries');
+      Route::post('industry/{id}/edit', 'AdminController@editIndustry')->name('editindustry');
+      Route::post('industry/{id}/delete', 'AdminController@deleteIndustry')->name('deleteindustry');
+
+
+
+       // Investors//
+       Route::get('/pools', 'AdminController@pools')->name('admin.pools');
+       Route::get('pool/{id}/view', 'AdminController@viewPool')->name('adminViewPool');
+       Route::post('pool/{id}/delete', 'AdminController@deletePool')->name('adminDeletePool');
+
+
+
 });
 
 
