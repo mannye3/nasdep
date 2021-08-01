@@ -411,7 +411,7 @@ class AdminController extends Controller
 
 
                 $pools =  Pool::with('incubator.company')->get();
-               
+
                 return view('admin.pools', compact('pools'));
 
             }
@@ -423,16 +423,66 @@ class AdminController extends Controller
             {
 
 
-                $company = Company::where('id', $id)->first();
-                // $incubators = Incubator::whereIn('company_id', $company)->get();
-                // $pools = Pool::whereIn('incubator_id', $incubators)->get();
-                // $enterprises = Enterprise::whereIn('company_id', $company)->get();
+                $pool = Pool::where('id', $id)->first();
+                $industries = Industry::all();
+                $incubators = Incubator::all();
                 $countries = Country::all();
-                $states = State::all();
+                return view('admin.pool' , compact('pool', 'industries','incubators','countries'));
+            }
 
 
 
-                return view('admin.pool' , compact('company', 'countries','states'));
+            public function editPool(Request $request, $id)
+            {
+                $pool = Pool::where('id', $id)->first();
+
+                $pool->name = $request['name'];
+                $pool->profile = $request['profile'];
+                $pool->growth_stage = $request['growth_stage'];
+                $pool->exp = $request['exp'];
+                $pool->regdate = $request['regdate'];
+                $pool->data_available = $request['data_available'];
+                $pool->countries = $request['countries'];
+                $pool->incubator_id = $request['incubator_id'];
+                $pool->industry_id = $request['industry_id'];
+
+                $pool->save();
+
+
+
+
+                if($request['logo'] !=""){
+                    $fileExt = $request->logo->getClientOriginalExtension();
+                    $regdate = $pool->regdate.'_'. date("Y-m-d").'_'.time().'.'.$fileExt;
+                    $logoName = config('app.url').'/images/'.$regdate;
+                    $request->logo->move(public_path('images'),$logoName);
+                    $pool->logo = $logoName;
+                    $pool->save();
+                    }
+
+
+               return back()->with('success', 'Company Details Updated');
+
+
+
+            }
+
+
+
+
+            public function changePoolStatus(Request $request, $id)
+            {
+                $pool = Pool::where('id', $id)->first();
+
+                $pool->suspended = $request['suspended'];
+
+                $pool->save();
+
+
+            return back()->with('success', 'Pool Status Updated');
+
+
+
             }
 
 
@@ -440,8 +490,8 @@ class AdminController extends Controller
 
             public function deletePool($id)
             {
-                $investor = Investor::where('id', $id)->first();
-                $investor->delete();
+                $pool = Pool::where('id', $id)->first();
+                $pool->delete();
 
                 return back()->with('success', 'Investor Deleted');
             }

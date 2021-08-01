@@ -80,11 +80,11 @@
 											<tbody>
 
 
-                                                {{ $i=0 }}
+
                                                 @foreach  ($analysts as $analyst)
-                                                {{ $i++ }}
+                                          
 												<tr>
-													<td>  {{ $i }}</td>
+													<td>{{ $loop->iteration }}</td>
 													<td>{{ $analyst->company->name }}</td>
 													<td>{{ $analyst->company->type }}</td>
 													<td>{{ $analyst->company->addr }}</td>

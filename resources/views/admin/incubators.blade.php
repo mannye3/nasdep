@@ -81,11 +81,11 @@
 											<tbody>
 
 
-                                                {{ $i=0 }}
+                                                
                                                 @foreach  ($incubators as $incubator)
-                                                {{ $i++ }}
+
 												<tr>
-													<td>  {{ $i }}</td>
+													<td> {{ $loop->iteration }}</td>
 													<td>{{ $incubator->company->name }}</td>
 													 <td> {{$incubator->company->website }}
                                                          </td>

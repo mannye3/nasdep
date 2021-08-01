@@ -138,6 +138,20 @@
 
 
 
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="{{ route('admin.pools')}}" class="menu-link menu-toggle">
+
+                                    <i class="fas fa-users text-success mr-5"></i>
+
+
+                                        <span class="menu-text">Pools</span>
+
+                                    </a>
+
+                                </li>
+
+
+
 
 
 

@@ -80,11 +80,11 @@
 											<tbody>
 
 
-                                                {{ $i=0 }} 
+                                                
                                                 @foreach  ($sectors as $sector)
-                                                {{ $i++ }}
+
 												<tr>
-													<td>  {{ $i }}</td>
+													<td> {{ $loop->iteration }}</td>
                                                     <td>{{ $sector->name }}</td>
                                                     <td>{{ $sector->industry->name }}</td>
 													<td></td>

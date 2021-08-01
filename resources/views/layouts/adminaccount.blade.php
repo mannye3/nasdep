@@ -275,6 +275,9 @@
 
 <script src="{{ asset('assets/assets/js/pages/crud/forms/editors/tinymce.js')}}"></script>
 
+<script src="{{ asset('assets/assets/js/pages/crud/forms/widgets/tagify.js')}}"></script>
+
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 

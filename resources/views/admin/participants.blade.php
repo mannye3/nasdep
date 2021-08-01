@@ -81,11 +81,11 @@
 											<tbody>
 
 
-                                                {{ $i=0 }}
+                                              
                                                 @foreach  ($users as $user)
-                                                {{ $i++ }}
+
 												<tr>
-													<td>  {{ $i }}</td>
+													<td> {{ $loop->iteration }}</td>
 													<td>{{ $user->name }}</td>
 													<td>{{ $user->company }}</td>
 													<td>{{ $user->email }}</td>
