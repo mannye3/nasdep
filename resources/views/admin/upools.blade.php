@@ -68,15 +68,16 @@
 												<tr>
 													<th>#</th>
 													<th>Name</th>
-													<th>Exp</th>
+                                                    <th>Registrant</th>
+
+
 													<th>Stage</th>
                                                     <th>Industry</th>
-                                                    <th>Reg Date</th>
-                                                    <th>Incubator</th>
-
-                                                    <th>Created At</th>
-                                                    <th>Update At</th>
-													<th>Status</th>
+                                                    <th>TOI</th>
+                                                    <th>TOF</th>
+                                                    <th>TLA</th>
+                                                    <th>Turnover</th>
+													<th>Amount</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -84,40 +85,39 @@
 
 
 
-                                                @foreach  ($pools as $pool)
+                                                @foreach  ($upools as $upool)
 
 												<tr>
-													<td>  {{ $loop->iteration }}</td>
-													<td>{{ $pool->name }}</td>
-													<td>{{ $pool->exp }}</td>
-													<td>{{ $pool->growth_stage }}</td>
-                                                    <td>{{ $pool->industry->name }}</td>
-                                                    <td>{{ $pool->regdate }}</td>
-                                                    <td>{{ $pool->incubator->company->name }}</td>
+													<td> {{ $loop->iteration }}</td>
+													<td>{{ $upool->name }}</td>
+                                                    <td>REG</td>
 
-                                                    <td>{{ $pool->created_at }}</td>
-                                                    <td>{{$pool->updated_at }}</td>
+													<td>{{ $upool->growth_stage }}</td>
+                                                    <td>{{ $upool->industry->name }}</td>
+                                                    <td>{{ $upool->toi }}</td>
+                                                    <td>{{ $upool->tof }}</td>
+
+                                                    <td>{{ $upool->ylaf }}</td>
+                                                    <td>
+
+                                                        <?php echo  number_format($upool->ylaf_turnover) ?>
+
+                                                       </td>
 													<td>
-                                                        @if($pool->suspended == 0)
-                                                        <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Active</span>
+                                                        <?php echo  number_format($upool->amount) ?>
 
-                                                        @endif
-
-                                                        @if($pool->suspended == 1)
-                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span>
-
-                                                        @endif
                                                     </td>
 
 
 
                                                     <td class="text-center">
-                                                        <a href="{{ route('adminViewPool', $pool->id)}}" class="fa fa-search" title="View account"></a>&nbsp;
-
-                                                        <a href=""  data-toggle="modal" data-target="#ChangepoolStatusModal-{{ $pool->id}}" class="fas fa-adjust" title="Change Status"></a>&nbsp;
+                                                        <a href="{{ route('adminViewUpool', $upool->id)}}" class="fa fa-search" title="View account"></a>&nbsp;
 
 
-                                                        <a href=""  data-toggle="modal" data-target="#deletepoolModal-{{ $pool->id}}" class="fas fa-trash-alt" title="Delete Account"></a>&nbsp;
+                                                        <a href=""  data-toggle="modal" data-target="#ChangeupoolsStatusModal" class="fas fa-adjust" title="Change Status"></a>&nbsp;
+
+
+                                                        <a href=""  data-toggle="modal" data-target="#deleteupoolsModal" class="fas fa-trash-alt" title="Delete Account"></a>&nbsp;
 
                                                      </td>
 												</tr>
@@ -140,12 +140,12 @@
 
 
 
-                 @foreach  ($pools as $pool)
-            <div class="modal fade" id="deletepoolModal-{{ $pool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 {{-- @foreach  ($upools as $upoos)
+            <div class="modal fade" id="deleteupoolsModal-{{ $upool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">You are about to delete {{ $pool->name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">You are about to delete {{ $upool->name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -155,7 +155,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                <form method="POST" id="adminDeleteInvestor-{{ $pool->id}}"  action="{{ route('deletepools', $pool->id)}}">@csrf
+                <form method="POST" id="adminDeleteInvestor-{{ $upool->id}}"  action="{{ route('deleteupoolss', $upools->id)}}">@csrf
                 <button type="submit" class="btn btn-primary font-weight-bold">Yes, delete account</button>
                 </form>
             </div>
@@ -166,18 +166,18 @@
 
 
 
-            @foreach  ($pools as $pool)
+            @foreach  ($upools as $upool)
 
-            <div class="modal fade" id="ChangepoolStatusModal-{{ $pool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="ChangeupoolsStatusModal-{{ $upool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">You are about to change  {{ $pool->name}} status</h5>
+                <h5 class="modal-title" id="exampleModalLabel">You are about to change  {{ $upool->name}} status</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
-            <form method="POST" id="adminStatusUserPost-{{ $pool->id}}"  action="{{ route('changepoolstatus', $pool->id)}}">@csrf
+            <form method="POST" id="adminStatusUserPost-{{ $upool->id}}"  action="{{ route('changeupoolsstatus', $upool->id)}}">@csrf
             <div class="modal-body">
                 <div class="form-group">
                     <label for="exampleSelect1">Change Status
@@ -197,7 +197,7 @@
             </div>
             </div>
             </div>
-            @endforeach
+            @endforeach --}}
 
 
                         @endsection

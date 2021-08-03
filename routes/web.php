@@ -144,7 +144,20 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
        Route::post('pool/{id}/delete', 'AdminController@deletePool')->name('deletepools');
 
 
-       
+
+
+
+
+
+       // UPools//
+       Route::get('/upools', 'AdminController@upools')->name('admin.upools');
+       Route::get('upool/{id}/view', 'AdminController@viewUpool')->name('adminViewUpool');
+       Route::post('upool/{id}/edit', 'AdminController@editUpool')->name('editupool');
+    //    Route::post('pool/{id}/status', 'AdminController@changePoolStatus')->name('changepoolstatus');
+    //    Route::post('pool/{id}/delete', 'AdminController@deletePool')->name('deletepools');
+
+
+
 
 
 

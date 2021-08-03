@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Incubator;
 use App\Models\Pool;
+use App\Models\Upool;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\State;
@@ -495,6 +496,115 @@ class AdminController extends Controller
 
                 return back()->with('success', 'Investor Deleted');
             }
+
+
+
+
+
+            public function upools()
+            {
+
+
+
+                $upools =  Upool::all();
+
+                return view('admin.upools', compact('upools'));
+
+            }
+
+
+
+
+            public function viewUpool($id)
+            {
+
+                $message = Upool::find($id);
+                $content = json_decode($message->registrant,TRUE);
+
+
+
+
+
+                $upool = Upool::where('id', $id)->first();
+
+                $industries = Industry::all();
+                // $incubators = Incubator::all();
+                $countries = Country::all();
+                $states = State::all();
+
+
+                return view('admin.upool' , compact('upool', 'industries', 'countries','states'));
+            }
+
+
+
+            public function editUpool(Request $request, $id)
+            {
+                $upool = Upool::where('id', $id)->first();
+
+                $upool->name = $request['name'];
+                $upool->profile = $request['profile'];
+                $upool->growth_stage = $request['growth_stage'];
+                $upool->exp = $request['exp'];
+                $upool->number = $request['number'];
+                $upool->toi = $request['toi'];
+                $upool->tof = $request['tof'];
+                $upool->ylaf = $request['ylaf'];
+                $upool->ylaf_turnover = $request['ylaf_turnover'];
+                $upool->amount = $request['amount'];
+                $upool->country_id = $request['country_id'];
+                $upool->state_id = $request['state_id'];
+                $upool->industry_id = $request['industry_id'];
+
+                $upool->save();
+
+
+
+
+                if($request['logo'] !=""){
+                    $fileExt = $request->logo->getClientOriginalExtension();
+                    $regdate = $upool->regdate.'_'. date("Y-m-d").'_'.time().'.'.$fileExt;
+                    $logoName = config('app.url').'/images/'.$regdate;
+                    $request->logo->move(public_path('images'),$logoName);
+                    $upool->logo = $logoName;
+                    $upool->save();
+                    }
+
+
+               return back()->with('success', 'Company Details Updated');
+
+
+
+            }
+
+
+
+
+            // public function changePoolStatus(Request $request, $id)
+            // {
+            //     $pool = Pool::where('id', $id)->first();
+
+            //     $pool->suspended = $request['suspended'];
+
+            //     $pool->save();
+
+
+            // return back()->with('success', 'Pool Status Updated');
+
+
+
+            // }
+
+
+
+
+            // public function deletePool($id)
+            // {
+            //     $pool = Pool::where('id', $id)->first();
+            //     $pool->delete();
+
+            //     return back()->with('success', 'Investor Deleted');
+            // }
 
 
 
