@@ -81,40 +81,29 @@
 											<tbody>
 
 
-                                              
+
                                                 @foreach  ($users as $user)
 
 												<tr>
 													<td> {{ $loop->iteration }}</td>
-													<td>{{ $user->name }}</td>
-													<td>{{ $user->company }}</td>
+													<td>{{ $user->fname }} {{ $user->lname }}</td>
+													<td> @foreach  ($user->user_request as $user_company)
+                                                        {{ $user_company->company . ','  }}  @endforeach</td>
 													<td>{{ $user->email }}</td>
 													<td>{{ $user->phone }}</td>
-													<td> @if($user->member_type == 1)
-                                                        Enterprise Rep
-                                                        @endif
 
-                                                        @if($user->member_type == 2)
-                                                        Investor Rep
-                                                        @endif
+													<td>  @foreach  ($user->user_request as $member)
+                                                         {{ $member->role . '.' }}  @endforeach</td>
 
-                                                        @if($user->member_type == 3)
-                                                        Accredited Investor
-                                                        @endif
-
-                                                        @if($user->member_type == 4)
-                                                        Incubator
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans()  }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($user->updated_at)->diffForHumans()  }}</td>
+                                                    <td>{{ $user->created_at }}</td>
+                                                    <td>{{$user->updated_at  }}</td>
 													<td>
-                                                        @if($user->user_status == 1)
+                                                        @if($user->suspended == 0)
                                                         <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Active</span></td>
 
                                                         @endif
 
-                                                        @if($user->user_status == 2)
+                                                        @if($user->suspended == 1)
                                                         <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span></td>
 
                                                         @endif
@@ -150,7 +139,7 @@
 
 
 
-
+{{--
                         @foreach  ($users as $user)
             <div class="modal fade" id="deleteUserModal-{{ $user->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -207,7 +196,7 @@
             </div>
             </div>
             </div>
-            @endforeach
+            @endforeach --}}
 
 
                         @endsection

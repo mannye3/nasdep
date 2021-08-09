@@ -179,7 +179,8 @@
                         <div class="card-body px-0">
 
                             <div class="tab-content pt-5">
-                             <div class="text-center">    @if (Session::has('success'))
+                             <div class="text-center">
+                                 @if (Session::has('success'))
                                 <div class="alert alert-success">
                                     {{ Session::get('success')}}
                                 </div>
@@ -198,7 +199,8 @@
 
                                 </div>
 
-                                @endif </div>
+                                @endif
+                            </div>
                                 <!--begin::Tab Content-->
                                 <div class="tab-pane active" id="kt_apps_contacts_view_tab_1" role="tabpanel">
                                     <div class="container">

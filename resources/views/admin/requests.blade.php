@@ -68,16 +68,14 @@
 												<tr>
 													<th>#</th>
 													<th>Name</th>
-                                                    <th>Registrant</th>
+													<th>Role</th>
+													<th>Company</th>
+                                                    <th>Status</th>
 
 
-													<th>Stage</th>
-                                                    <th>Industry</th>
-                                                    <th>TOI</th>
-                                                    <th>TOF</th>
-                                                    <th>TLA</th>
-                                                    <th>Turnover</th>
-													<th>Amount</th>
+                                                    <th>Created At</th>
+                                                    <th>Update At</th>
+													<th>Status</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -85,39 +83,60 @@
 
 
 
-                                                @foreach  ($upools as $upool)
+                                                @foreach  ($user_requests as $user_request)
 
 												<tr>
-													<td> {{ $loop->iteration }}</td>
-													<td>{{ $upool->name }}</td>
-                                                    <td>REG</td>
-
-													<td>{{ $upool->growth_stage }}</td>
-                                                    <td>{{ $upool->industry->name }}</td>
-                                                    <td>{{ $upool->toi }}</td>
-                                                    <td>{{ $upool->tof }}</td>
-
-                                                    <td>{{ $upool->ylaf }}</td>
-                                                    <td>
-
-                                                        <?php echo  number_format($upool->ylaf_turnover) ?>
-
-                                                       </td>
+													<td>{{ $loop->iteration }}</td>
+													<td>{{ $user_request->fname }} {{ $user_request->lname }}</td>
+                                                    <td>{{ $user_request->role }}</td>
+													<td>{{ $user_request->company }}</td>
 													<td>
-                                                        <?php echo  number_format($upool->amount) ?>
 
+                                                        @if($user_request->status == 'active')
+                                                        <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Active</span>
+
+                                                        @endif
+
+                                                        @if($user_request->status == 'denied')
+                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span>
+
+                                                        @endif
+
+
+                                                        @if($user_request->status == 'pending')
+                                                        <span class="label label-lg label-light-warning label-inline font-weight-bold py-4">Pending</span>
+
+                                                        @endif
+
+
+
+                                                     </td>
+
+
+
+                                                    <td>{{ $user_request->created_at }}</td>
+                                                    <td>{{$user_request->updated_at }}</td>
+													<td>
+                                                        @if($user_request->suspended == 0)
+                                                        <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Active</span>
+
+                                                        @endif
+
+                                                        @if($user_request->suspended == 1)
+                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span>
+
+                                                        @endif
                                                     </td>
 
 
 
                                                     <td class="text-center">
-                                                        <a href="{{ route('adminViewUpool', $upool->id)}}" class="fa fa-search" title="View account"></a>&nbsp;
+                                                        <a href="{{ route('adminViewPool', $user_request->id)}}" class="fa fa-search" title="View account"></a>&nbsp;
+
+                                                        <a href=""  data-toggle="modal" data-target="#Changeuser_requestStatusModal-{{ $user_request->id}}" class="fas fa-adjust" title="Change Status"></a>&nbsp;
 
 
-                                                        <a href=""  data-toggle="modal" data-target="#ChangeupoolsStatusModal" class="fas fa-adjust" title="Change Status"></a>&nbsp;
-
-
-                                                        <a href=""  data-toggle="modal" data-target="#deleteupoolModal-{{ $upool->id}}" class="fas fa-trash-alt" title="Delete Account"></a>&nbsp;
+                                                        <a href=""  data-toggle="modal" data-target="#deleteuser_requestModal-{{ $user_request->id}}" class="fas fa-trash-alt" title="Delete Account"></a>&nbsp;
 
                                                      </td>
 												</tr>
@@ -139,13 +158,13 @@
 
 
 
-
-                 @foreach  ($upools as $upool)
-            <div class="modal fade" id="deleteupoolModal-{{ $upool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{--
+                 @foreach  ($user_requests as $user_request)
+            <div class="modal fade" id="deleteuser_requestModal-{{ $user_request->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">You are about to delete {{ $upool->name}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">You are about to delete {{ $user_request->name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
@@ -155,36 +174,37 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                <form method="POST" id="adminDeleteInvestor-{{ $upool->id}}"  action="{{ route('deleteupools', $upool->id)}}">@csrf
+                <form method="POST" id="adminDeleteInvestor-{{ $user_request->id}}"  action="{{ route('deleteuser_requests', $user_request->id)}}">@csrf
                 <button type="submit" class="btn btn-primary font-weight-bold">Yes, delete account</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
- @endforeach
+ @endforeach  --}}
 
 
 
-         {{--   @foreach  ($upools as $upool)
+            @foreach  ($user_requests as $user_request)
 
-            <div class="modal fade" id="ChangeupoolsStatusModal-{{ $upool->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="Changeuser_requestStatusModal-{{ $user_request->id}}"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">You are about to change  {{ $upool->name}} status</h5>
+                <h5 class="modal-title" id="exampleModalLabel">You are about to change  request status</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
+
             </div>
-            <form method="POST" id="adminStatusUserPost-{{ $upool->id}}"  action="{{ route('changeupoolsstatus', $upool->id)}}">@csrf
+            <form method="POST" id="adminStatusUserPost-{{ $user_request->id}}"  action="{{ route('changerequuststatus', $user_request->id)}}">@csrf
             <div class="modal-body">
                 <div class="form-group">
                     <label for="exampleSelect1">Change Status
                     <span class="text-danger">*</span></label>
-                    <select class="form-control" id="exampleSelect1" name="suspended">
-                        <option value="0">Enable</option>
-                        <option value="1">Disable</option>
+                    <select class="form-control" id="exampleSelect1" name="status">
+                        <option value="active">Activate</option>
+                        <option value="denied">Denied</option>
                     </select>
                 </div>
             </div>
@@ -197,7 +217,7 @@
             </div>
             </div>
             </div>
-            @endforeach --}}
+            @endforeach
 
 
                         @endsection

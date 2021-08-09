@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
 
 
 Route::get('/', 'PublicController@index')->name('index');
@@ -153,8 +156,27 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
        Route::get('/upools', 'AdminController@upools')->name('admin.upools');
        Route::get('upool/{id}/view', 'AdminController@viewUpool')->name('adminViewUpool');
        Route::post('upool/{id}/edit', 'AdminController@editUpool')->name('editupool');
-    //    Route::post('pool/{id}/status', 'AdminController@changePoolStatus')->name('changepoolstatus');
-    //    Route::post('pool/{id}/delete', 'AdminController@deletePool')->name('deletepools');
+       Route::post('upool/{id}/delete', 'AdminController@deleteUpool')->name('deleteupools');
+
+
+
+       // UPools//
+       Route::get('/add_company', 'AdminController@add_company')->name('admin.add_company');
+       Route::post('add_company/new', 'AdminController@createCompany')->name('createcompany');
+    //    Route::get('upool/{id}/view', 'AdminController@viewUpool')->name('adminViewUpool');
+    //    Route::post('upool/{id}/edit', 'AdminController@editUpool')->name('editupool');
+    //    Route::post('upool/{id}/delete', 'AdminController@deleteUpool')->name('deleteupools');
+
+
+
+    // UPools//
+    Route::get('/requests', 'AdminController@requests')->name('admin.requests');
+    Route::post('request/{id}/status', 'AdminController@changeRequestStatus')->name('changerequuststatus');
+
+    // Route::post('add_company/new', 'AdminController@createCompany')->name('createcompany');
+ //    Route::get('upool/{id}/view', 'AdminController@viewUpool')->name('adminViewUpool');
+ //    Route::post('upool/{id}/edit', 'AdminController@editUpool')->name('editupool');
+ //    Route::post('upool/{id}/delete', 'AdminController@deleteUpool')->name('deleteupools');
 
 
 

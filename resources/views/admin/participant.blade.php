@@ -195,27 +195,37 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
-                                        <div class="form-group row">
-                                            <label class="col-form-label col-3 text-lg-right text-left">Full Name</label>
-                                            <div class="col-9">
-                                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->name}}" />
-                                            </div>
-                                        </div>
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
 
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
+
+
                                         <div class="form-group row">
-                                            <label class="col-form-label col-3 text-lg-right text-left">Company Name</label>
+                                            <label class="col-form-label col-3 text-lg-right text-left">First Name</label>
                                             <div class="col-9">
-                                                <input class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->company}}" />
+                                                <input name="name" class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->fname}}" />
                                             </div>
                                         </div>
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-3 text-lg-right text-left">Last Name</label>
+                                            <div class="col-9">
+                                                <input name="name" class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->lname}}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-3 text-lg-right text-left">Company </label>
+                                            <div class="col-9">
+
+                                                <div class="border-bottom mb-5 pb-5">
+                                                    <div class="line-height-xl">
+                                                     <p style="font-size : 15px;">@foreach($user->user_request as $user_company)
+                                                     {{ $user_company->company .',' }}  @endforeach </p>
+                                                    </div>
+                                                 </div>
+
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-form-label col-3 text-lg-right text-left">Contact Phone</label>
                                             <div class="col-9">
@@ -229,8 +239,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
+
                                         <div class="form-group row">
                                             <label class="col-form-label col-3 text-lg-right text-left">Email Address</label>
                                             <div class="col-9">
@@ -244,36 +253,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--end::Group-->
-                                        <!--begin::Group-->
+
                                         <div class="form-group row">
-                                            <label class="col-form-label col-3 text-lg-right text-left">Member Type</label>
+                                            <label class="col-form-label col-3 text-lg-right text-left">Role</label>
                                             <div class="col-9">
-                                                <div class="input-group input-group-lg input-group-solid">
-                                                    @if($user->member_type == 1)
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="Enterprise Rep" />
-
-
-                                                    @endif
-
-                                                    @if($user->member_type == 2)
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="Investor Rep" />
-
-
-                                                    @endif
-
-                                                    @if($user->member_type == 3)
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="Accredited Investor" />
-
-                                                    @endif
-
-                                                    @if($user->member_type == 4)
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="Incubator" />
-
-
-                                                    @endif
-
+                                                <div class="border-bottom mb-5 pb-5">
+                                                   <div class="line-height-xl">
+                                                    <p style="font-size : 15px;">@foreach($user->user_request as $user_company)
+                                                    {{ $user_company->role .',' }}  @endforeach </p>
+                                                   </div>
                                                 </div>
+
                                             </div>
                                         </div>
 
@@ -291,14 +281,28 @@
 
 
                                         <div class="form-group row">
-                                            <label class="col-form-label col-3 text-lg-right text-left">Location</label>
+                                            <label class="col-form-label col-3 text-lg-right text-left">Country</label>
                                             <div class="col-9">
                                                 <div class="input-group input-group-lg input-group-solid">
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="{{ $user->location}}" />
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="{{ $user->country->name}}" />
 
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-3 text-lg-right text-left">State</label>
+                                            <div class="col-9">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Username" value="{{ $user->state->name}}" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
                                         <!--end::Group-->
                                     </div>
                                 </div>
@@ -359,11 +363,20 @@
                                              <!--end::Group-->
                                         <!--begin::Group-->
                                         <div class="form-group row">
-                                            <label class="col-form-label col-3 text-lg-right text-left">Full Name</label>
+                                            <label class="col-form-label col-3 text-lg-right text-left">First Name</label>
                                             <div class="col-9">
-                                                <input name="name" class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->name}}" />
+                                                <input name="name" class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->fname}}" />
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-3 text-lg-right text-left">Last Name</label>
+                                            <div class="col-9">
+                                                <input name="name" class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->lname}}" />
+                                            </div>
+                                        </div>
+
+
                                         <!--end::Group-->
                                         <!--begin::Group-->
 

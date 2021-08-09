@@ -24,6 +24,7 @@
         <link href="{{ asset('assets/assets/css/themes/layout/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/assets/css/themes/layout/brand/light.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/assets/css/themes/layout/aside/light.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/assets/css/pages/wizard/wizard-4.css')}}" rel="stylesheet" type="text/css" />
         <!--end::Layout Themes-->
         <link rel="shortcut icon" href="{{ asset('assets/assets/media/newNasdIcon.jpg')}}" />
 
@@ -276,6 +277,7 @@
 <script src="{{ asset('assets/assets/js/pages/crud/forms/editors/tinymce.js')}}"></script>
 
 <script src="{{ asset('assets/assets/js/pages/crud/forms/widgets/tagify.js')}}"></script>
+<script src="{{ asset('assets/assets/js/pages/custom/user/add-user.js')}}"></script>
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

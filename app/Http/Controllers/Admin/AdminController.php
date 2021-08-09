@@ -14,6 +14,7 @@ use App\Models\Sector;
 use App\Models\Enterprise;
 use App\Models\Investor;
 use App\Models\Analyst;
+use App\Models\UserRequest;
 
 use DB;
 
@@ -42,10 +43,16 @@ class AdminController extends Controller
 
 
     public function participants()
+
     {
 
-        $users = User::all();
-        return view('admin.participants', compact('users'));
+        // $user_requests = UserRequest::all();
+
+        // var_dump($user_requests);
+        $users = User::where('authorized', 1)->where('type', 'external')->get();
+
+
+         return view('admin.participants', compact('users'));
 
     }
 
@@ -55,6 +62,8 @@ class AdminController extends Controller
     public function viewUser($id)
     {
         $user = User::where('id', $id)->first();
+        $user_request = UserRequest::where('user_id', $id)->where('status', 'active')->get();
+        // return $user_request;
         return view('admin.participant' , compact('user'));
     }
 
@@ -156,6 +165,110 @@ class AdminController extends Controller
 
                 return view('admin.incubator' , compact('company', 'pools', 'enterprises', 'countries','states'));
             }
+
+
+
+
+
+            public function add_company()
+            {
+
+                $countries = Country::all();
+                $states = State::all();
+                $industries = Industry::all();
+
+                return view('admin.add_company' , compact('countries', 'states', 'industries'));
+
+            }
+
+
+
+
+
+            public function createCompany(Request $request)
+            {
+                $company = new Company();
+
+                $company->name = $request['name'];
+                $company->number = $request['number'];
+                $company->addr = $request['addr'];
+                $company->ind_exp = $request['ind_exp'];
+                $company->country_id = $request['country_id'];
+                $company->state_id = $request['state_id'];
+                $company->industry_id = $request['industry_id'];
+                $company->type = $request['type'];
+                $company->website = $request['website'];
+                $company->about = $request['about'];
+                $company->addr = $request['addr'];
+                $company->doi = $request['doi'];
+
+                $company->save();
+
+                $company_id = $company->id;
+
+
+
+
+                if($request['logo'] !=""){
+                    $fileExt = $request->logo->getClientOriginalExtension();
+                    $doi = $company->doi.'_'. date("Y-m-d").'_'.time().'.'.$fileExt;
+                    $logoName = config('app.url').'/images/'.$doi;
+                    $request->logo->move(public_path('images'),$logoName);
+                    $company->logo = $logoName;
+                    $company->save();
+                    }
+
+
+                    if($request['analyst'] !=""){
+
+
+                        $analyst = new Analyst();
+
+                        $analyst->company_id = $company_id;
+
+                        $analyst->save();
+
+                    }
+
+
+                    if($request['investor'] !=""){
+
+
+                        $investor = new Investor();
+
+                        $investor->company_id = $company_id;
+
+                        $investor->save();
+
+                    }
+
+
+
+
+                    if($request['incubator'] !=""){
+
+
+                        $incubator = new Incubator();
+
+                        $incubator->company_id = $company_id;
+
+                        $incubator->save();
+
+                    }
+
+
+
+               return back()->with('success', 'Company Added');
+
+
+
+            }
+
+
+
+
+
+
 
 
 
@@ -580,31 +693,52 @@ class AdminController extends Controller
 
 
 
-            // public function changePoolStatus(Request $request, $id)
-            // {
-            //     $pool = Pool::where('id', $id)->first();
 
-            //     $pool->suspended = $request['suspended'];
+            public function deleteUpool($id)
+            {
+                $upool = Upool::where('id', $id)->first();
+                $upool->delete();
 
-            //     $pool->save();
-
-
-            // return back()->with('success', 'Pool Status Updated');
-
-
-
-            // }
+                return back()->with('success', 'Investor Deleted');
+            }
 
 
 
 
-            // public function deletePool($id)
-            // {
-            //     $pool = Pool::where('id', $id)->first();
-            //     $pool->delete();
+            public function requests()
+            {
 
-            //     return back()->with('success', 'Investor Deleted');
-            // }
+
+
+                // $user_requests =  UserRequest::all();
+
+
+                $user_requests = USER::join('user_requests', 'users.id', '=', 'user_requests.user_id')
+                ->select('users.fname', 'users.lname', 'user_requests.*')
+                ->get();
+
+
+
+                return view('admin.requests', compact('user_requests'));
+
+            }
+
+
+
+            public function changeRequestStatus(Request $request, $id)
+            {
+                $user_request = UserRequest::where('id', $id)->first();
+
+                $user_request->status = $request['status'];
+
+                $user_request->save();
+
+
+            return back()->with('success', 'Request Status Updated');
+
+
+
+            }
 
 
 
