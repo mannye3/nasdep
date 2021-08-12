@@ -30,11 +30,21 @@
                 @csrf
 			<div class="row justify-content-center my_dashboard_review">
 					<div class="row">
-							<div class="col-lg-12">
+							<div class="col-lg-6">
 
 								<div class="my_profile_setting_input form-group">
-							    	<label for="listingPlace">Fullname</label>
-							    	<input type="text"  class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required id="listingPlace">
+							    	<label for="listingPlace">First name</label>
+							    	<input type="text"  class="form-control @error('fname') is-invalid @enderror" name="fname" value="{{ old('fname') }}" required id="listingPlace">
+								</div>
+							</div>
+
+
+
+                            <div class="col-lg-6">
+
+								<div class="my_profile_setting_input form-group">
+							    	<label for="listingPlace">Last name</label>
+							    	<input type="text"  class="form-control @error('lname') is-invalid @enderror" name="lname" value="{{ old('lname') }}" required id="listingPlace">
 								</div>
 							</div>
 
@@ -73,20 +83,57 @@
 
 
 
-
-
-
-							<div class="col-lg-12">
+							<div class="col-lg-6">
 								<div class="my_profile_setting_input form-group">
-							    	<label for="listingPlace">Membership Type</label>
-							    	<select name="member_type" class="form-control @error('member_type') is-invalid @enderror" value="{{ old('member_type') }}" required>
-							    <option value="1">Enterprise Representative</option>
-							    <option value="2">Investor Representative</option>
-							    <option value="3">Accredited Investor</option>
-							    <option value="4">Incubator</option>
+							    	<label for="listingPlace">Gender</label>
+							    	<select name="gender" class="form-control @error('gender') is-invalid @enderror" value="{{ old('gender') }}" required>
+							    <option value="M">Male</option>
+							    <option value="F">Female</option>
 							    	</select>
 								</div>
 							</div>
+
+
+
+                            <div class="col-lg-6">
+								<div class="my_profile_setting_input form-group">
+							    	<label for="listingPlace">Location</label>
+                                    <?php  $states =\App\Models\State::all(); ?>
+                                    <select name="state_id" class="form-control form-control-lg form-control-solid">
+                                        @foreach($states as $state)
+                                        <option value="{{ $state->id }}">
+                                            {{$state->name }}</option>
+                                            @endforeach
+                                    </select>
+								</div>
+							</div>
+
+
+
+                            <div class="col-lg-6">
+								<div class="my_profile_setting_input form-group">
+							    	<label for="listingPlace">Membership Type</label>
+							    	<select name="role" class="form-control @error('role') is-invalid @enderror" value="{{ old('role') }}" required>
+							    <option value="Enterprise Rep">Enterprise Representative</option>
+							    <option value="Investor Rep">Investor Representative</option>
+							    <option value="Accredited Investor">Accredited Investor</option>
+							    <option value="Incubator">Incubator</option>
+							    	</select>
+								</div>
+							</div>
+
+
+                            <div class="col-lg-6">
+
+								<div class="my_profile_setting_input form-group">
+							    	<label for="listingPlace">Company</label>
+							    	<input type="text"  class="form-control @error('company') is-invalid @enderror" name="company" value="{{ old('company') }}" required id="listingPlace">
+								</div>
+							</div>
+
+                            {{-- Hidden values --}}
+                            <input type="text"  class="form-control" name="type" value="external">
+                            <input type="text"  class="form-control" name="country_id" value="162">
 
 
 

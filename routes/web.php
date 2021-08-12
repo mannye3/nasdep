@@ -28,7 +28,9 @@ Route::get('pricing', 'PublicController@pricing')->name('pricing');
 
 
 
-
+Route::get('sendbasicemail','MailController@basic_email')->name('sendbasicemail');
+Route::get('sendhtmlemail','MailController@html_email')->name('html_email');
+Route::get('sendattachmentemail','MailController@attachment_email');
 
 
 
