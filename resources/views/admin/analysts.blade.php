@@ -82,7 +82,7 @@
 
 
                                                 @foreach  ($analysts as $analyst)
-                                          
+
 												<tr>
 													<td>{{ $loop->iteration }}</td>
 													<td>{{ $analyst->company->name }}</td>

@@ -55,6 +55,8 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::prefix('investor')->group(function(){
     Route::get('dashboard', 'InvestorController@dashboard')->name('investorDashboard');
     Route::get('analysts', 'InvestorController@analysts')->name('analysts');
+    Route::get('pools', 'InvestorController@pools')->name('pools');
+    Route::get('upools', 'InvestorController@upools')->name('upools');
     Route::get('investors', 'InvestorController@investors')->name('investors');
     Route::get('incubators', 'InvestorController@incubators')->name('incubators');
     Route::get('profile', 'InvestorController@profile')->name('profile');
@@ -70,8 +72,17 @@ Route::prefix('investor')->group(function(){
 
 
 // ENTERPRISE
-Route::prefix('investor')->group(function(){
-    Route::get('/dashboard', 'InvestorController@dashboard')->name('investorDashboard');
+Route::prefix('enterprise')->group(function(){
+    Route::get('/dashboard', 'EnterpriseController@dashboard')->name('enterpriseDashboard');
+    Route::get('analysts', 'EnterpriseController@analysts')->name('analysts');
+    Route::get('pools', 'EnterpriseController@pools')->name('pools');
+    Route::get('upools', 'EnterpriseController@upools')->name('upools');
+    Route::get('investors', 'EnterpriseController@investors')->name('investors');
+    Route::get('incubators', 'EnterpriseController@incubators')->name('incubators');
+    Route::get('profile', 'EnterpriseController@profile')->name('profile');
+    Route::post('profile', 'EnterpriseController@profileEdit')->name('investorProfileEdit');
+    Route::post('profile/password', 'EnterpriseController@profilePassword')->name('investorProfilePassword');
+    Route::post('profile/picture', 'EnterpriseController@profilePicture')->name('investorProfilePicture');
 });
 
 

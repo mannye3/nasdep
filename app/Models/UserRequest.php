@@ -16,6 +16,13 @@ class UserRequest extends Model
 
 
 
+    public function user2()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+
+
 
 
 }

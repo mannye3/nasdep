@@ -3,7 +3,7 @@
 @section('content')
 				<div class="col-lg-12 mb15">
 					<div class="breadcrumb_content style2">
-						<h2 class="breadcrumb_title float-left">Analyst Companies</h2>
+						<h2 class="breadcrumb_title float-left">Pools</h2>
 
 					</div>
 				</div>
@@ -13,35 +13,36 @@
 
 					<div class="col-lg-12 mt25">
 						<div class="">
+
+
 							<form action="#">
 							  <table id="default-datatable" class="display table  table-bordered">
 								  	<thead>
 									    <tr class="carttable_row">
-									    	<th class="cartm_title"></th>
+									    	<th class="cartm_title">#</th>
 									    	<th class="cartm_title">Name</th>
 									    	<th class="cartm_title">EXP(Years)</th>
-									    	<th class="cartm_title">ENTERPRISES</th>
-									    	<th class="cartm_title">OPERATIONAL COUNTRIES</th>
-									    	<th class="cartm_title">LOCATION</th>
+									    	<th class="cartm_title">Stage</th>
+									    	<th class="cartm_title">Industry</th>
+                                            <th class="cartm_title">Reg Date</th>
+									    	<th class="cartm_title">Incubator</th>
+
 
 									    </tr>
 								  	</thead>
 								  	<tbody class="table_body">
-                                        @foreach  ($analysts as $analyst)
+                                        @foreach  ($pools as $pool)
 									    <tr>
-									    	<td><img src="{{ $analyst->company->logo }}" height="50px"></td>
-									    		<td>{{ $analyst->company->name }}</td>
+									    	<td> {{ $loop->iteration }}</td>
+                                            <td>{{ $pool->name }}</td>
+									    	<td>{{ $pool->exp }}</td>
+									    	<td>{{ $pool->growth_stage }}</td>
+                                            <td>{{ $pool->industry->name }}</td>
+									    	<td>{{ $pool->regdate }}</td>
+									    	<td>{{ $pool->incubator->company->name }}</td>
 
-
-									    	<td>{{ $analyst->company->ind_exp }}</td>
-									    	<td>{{ $analyst->company->enterprise->count() }}</td>
-									    	<td>{{ $analyst->company->country->name }}</td>
-									    	<td>{{ $analyst->company->state->name }}</td>
 
 									    </tr>
-
-
-
                                         @endforeach
 								  	</tbody>
 								</table>
@@ -49,10 +50,10 @@
 						</div>
 					</div>
 
-
-
 				</div>
 			</div>
 		</div>
 	</section>
+
+
     @endsection

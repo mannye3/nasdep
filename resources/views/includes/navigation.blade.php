@@ -56,23 +56,23 @@
                     <li class="user_setting">
 						<div class="dropdown">
 	                		<a class="btn dropdown-toggle" href="#" data-toggle="dropdown">
-                                @if(Auth::user()->avatar == "")
+                                @if(Auth::user()->picture == "")
                                 <img class="rounded-circle" src="{{ asset('images/user.png')}}" height="30px" width="30px">
                                 @else
-                                <img class="rounded-circle" src="{{ Auth::user()->avatar}}" height="50px">
+                                <img class="rounded-circle" src="{{ Auth::user()->picture}}" height="50px">
                                 @endif
-                                <span class="dn-1366"> {{ Auth::user()->name}} <span class="fa fa-angle-down"></span></span></a>
+                                <span class="dn-1366"> {{ Auth::user()->fname}} {{ Auth::user()->lname}}  <span class="fa fa-angle-down"></span></span></a>
 
 
 						    <div class="dropdown-menu">
 						    	<div class="user_set_header">
-                                    @if(Auth::user()->avatar == "")
+                                    @if(Auth::user()->picture == "")
 						    		<img class="float-left" src="{{ asset('images/user.png')}}" height="50px">
                                     @else
-                                    <img class="float-left" src="{{ Auth::user()->avatar}}" height="50px">
+                                    <img class="float-left" src="{{ Auth::user()->picture}}" height="50px">
                                     @endif
 
-							    	<p>{{ Auth::user()->name}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
+							    	<p>{{ Auth::user()->fname}} {{ Auth::user()->lname}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
                                     <div class="user_setting_content">
                                         <a class="dropdown-item active" href="{{ route('profile') }}">My Profile</a>
 

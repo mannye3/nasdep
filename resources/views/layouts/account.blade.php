@@ -34,6 +34,7 @@
 
 @include('includes.users.headerNavigation')
 
+
 	<!-- Our Dashbord -->
 	<section class="extra-dashboard-menu dn-992">
 		<div class="container">
@@ -41,13 +42,34 @@
 				<div class="col-lg-12">
 					<div class="ed_menu_list mt5">
 						<ul>
+                            @if (Auth::user()->role == "Enterprise Rep")
+							<li><a class="" href="{{ route('enterpriseDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+
+                            @endif
+
+                            @if (Auth::user()->role == "Investor Rep")
 							<li><a class="" href="{{ route('investorDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
-							<li><a href="{{ route('investorDashboard') }}"><span class="flaticon-list"></span>Enterprises</a></li>
+
+                            @endif
+
+
+                            @if (Auth::user()->role == "Accredited Investor")
+							<li><a class="" href="{{ route('investorDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+
+                            @endif
+
+
+                            @if (Auth::user()->role == "Incubator")
+							<li><a class="" href="{{ route('investorDashboard') }}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+
+                            @endif
+
+							<li><a href="#"><span class="flaticon-list"></span>Enterprises</a></li>
 							<li><a href="{{ route('analysts') }}"><span class="flaticon-list"></span>Analysts</a></li>
 							<li><a href="{{ route('investors') }}"><span class="fa fa-list"></span>Investors</a></li>
 							<li><a href="{{ route('incubators') }}"><span class="fa fa-list"></span>incubators</a></li>
-							<li><a href=""><span class="fa fa-check-circle"></span> Pool</a></li>
-							<li><a href=""><span class="fa fa-close"></span> Unpool</a></li>
+							<li><a href="{{ route('pools') }}"><span class="fa fa-check-circle"></span> Pool</a></li>
+							<li><a href="{{ route('upools') }}"><span class="fa fa-close"></span> Unpool</a></li>
 						</ul>
 					</div>
 				</div>
@@ -77,7 +99,17 @@
 				</div>
 
 
+                @if(Auth::user()->authorized == "")
 
+                <div class="ui_kit_message_box">
+                    <div class="alert alart_style_three alert-dismissible fade show" role="alert">
+                        Your account is yet to be authorized.  <a href="{{ route('sendbasicemail') }}" >Request for authorization. </a>
+
+                    </div>
+                
+                </div>
+
+                @endif
 
 
                 @yield('content')

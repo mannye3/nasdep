@@ -3,7 +3,7 @@
 @section('content')
 <div class="col-lg-12 mb10">
     <div class="breadcrumb_content style2">
-        <h2 class="breadcrumb_title float-left">Hello, {{ Auth::user()->name}}!</h2>
+        <h2 class="breadcrumb_title float-left">Hello {{ Auth::user()->fname}}  {{ Auth::user()->lname}}!</h2>
 
     </div>
 </div>

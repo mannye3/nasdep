@@ -57,7 +57,7 @@
                                 @else
                                 <img class="rounded-circle" src="{{ Auth::user()->avatar}}" height="50px">
                                 @endif
-                                <span class="dn-1366"> {{ Auth::user()->name}} <span class="fa fa-angle-down"></span></span></a>
+                                <span class="dn-1366"> {{ Auth::user()->fname}} {{ Auth::user()->lname}} <span class="fa fa-angle-down"></span></span></a>
 
 
 						    <div class="dropdown-menu">
@@ -68,7 +68,7 @@
                                     <img class="float-left" src="{{ Auth::user()->avatar}}" height="50px">
                                     @endif
 
-							    	<p>{{ Auth::user()->name}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
+							    	<p>{{ Auth::user()->fname}} {{ Auth::user()->lname}}<br><span class="address">{{ Auth::user()->email}}</a></span></p>
                                     <div class="user_setting_content">
                                         <a class="dropdown-item active" href="{{ route('dashboard') }}">My Profile</a>
 

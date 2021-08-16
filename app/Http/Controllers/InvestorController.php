@@ -5,6 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use App\Models\Incubator;
+use App\Models\Pool;
+use App\Models\Upool;
+use App\Models\Company;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\Industry;
+use App\Models\Sector;
+use App\Models\Enterprise;
+use App\Models\Investor;
+use App\Models\Analyst;
 
 class InvestorController extends Controller
 {
@@ -17,7 +28,7 @@ class InvestorController extends Controller
 
 
         // $this->middleware('checkRole:member_type');
-        $this->middleware('auth');
+        $this->middleware(['auth','checkRole']);
     }
 
 
@@ -181,20 +192,45 @@ class InvestorController extends Controller
 
     public function analysts()
     {
-        return view('investor.analysts');
+        $analysts = Analyst::all();
+
+        return view('investor.analysts', compact('analysts'));
+
     }
 
 
 
     public function investors()
     {
-        return view('investor.investors');
+        $investors = Investor::all();
+
+        return view('investor.investors', compact('investors'));
+
     }
 
 
     public function incubators()
     {
-        return view('investor.incubators');
+        $incubators = Incubator::all();
+
+        return view('investor.incubators', compact('incubators'));
+    }
+
+
+    public function pools()
+    {
+        $pools = Pool::all();
+
+        return view('investor.pools', compact('pools'));
+    }
+
+
+
+    public function upools()
+    {
+        $upools = Upool::all();
+
+        return view('investor.upools', compact('upools'));
     }
 
 

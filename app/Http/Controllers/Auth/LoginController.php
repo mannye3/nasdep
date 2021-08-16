@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\Models\UserRequest;
 
 class LoginController extends Controller
 {
@@ -52,12 +53,16 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request)
     {
-        if(Auth::check() == false || Auth::user()->member_type == 1)
+        // $user_requests = UserRequest::all();
+
+        if(Auth::check() == true || Auth::user()->role == "Enterprise Rep")
         {
-            return redirect('/');
+            return redirect('/enterprise/dashboard');
         }
 
-        if(Auth::check() == true &&  Auth::user()->member_type == 2)
+
+
+        if(Auth::check() == true || Auth::user()->role == "Investor Rep")
         {
 
             return redirect('/investor/dashboard');
@@ -67,15 +72,19 @@ class LoginController extends Controller
         }
 
 
-        if(Auth::check() == false || Auth::user()->member_type == 3)
+
+
+        if(Auth::check() == false || Auth::user()->role == "Accredited Investor")
         {
-            return redirect('/');
+            return redirect('/accredited_investor/dashboard');
         }
 
 
-        if(Auth::check() == false || Auth::user()->member_type == 4)
+
+
+        if(Auth::check() == false || Auth::user()->role == "Incubator")
         {
-            return redirect('/');
+            return redirect('/incubator/dashboard');
         }
     }
 

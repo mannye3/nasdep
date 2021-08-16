@@ -81,7 +81,7 @@
 											<tbody>
 
 
-                                                
+
                                                 @foreach  ($incubators as $incubator)
 
 												<tr>

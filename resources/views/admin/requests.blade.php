@@ -75,7 +75,7 @@
 
                                                     <th>Created At</th>
                                                     <th>Update At</th>
-													<th>Status</th>
+
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -98,7 +98,7 @@
                                                         @endif
 
                                                         @if($user_request->status == 'denied')
-                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span>
+                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Denied</span>
 
                                                         @endif
 
@@ -116,17 +116,7 @@
 
                                                     <td>{{ $user_request->created_at }}</td>
                                                     <td>{{$user_request->updated_at }}</td>
-													<td>
-                                                        @if($user_request->suspended == 0)
-                                                        <span class="label label-lg label-light-success label-inline font-weight-bold py-4">Active</span>
-
-                                                        @endif
-
-                                                        @if($user_request->suspended == 1)
-                                                        <span class="label label-lg label-light-danger label-inline font-weight-bold py-4">Disabled</span>
-
-                                                        @endif
-                                                    </td>
+													
 
 
 

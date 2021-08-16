@@ -9,7 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Mail;
-use App\Models\State;
+// use App\Models\State;
+use App\Models\UserRequest;
 class RegisterController extends Controller
 {
     /*
@@ -80,10 +81,26 @@ class RegisterController extends Controller
                    'country_id' => $data['country_id'],
                    'state_id' => $data['state_id'],
                    'type' => $data['type'],
+                   'role' => $data['role'],
                    'email' => $data['email'],
                    'password' => Hash::make($data['password']),
                     'phone'=> $data['phone']
                ]);
+
+               $user_id = $user->id;
+               $company = $data['company'];
+               $role = $data['role'];
+               $status = 'pending';
+
+
+               $user_request = new UserRequest();
+
+                        $user_request->user_id = $user_id;
+                        $user_request->company = $company;
+                        $user_request->role = $role;
+                        $user_request->status = $status;
+
+                        $user_request->save();
 
         // email data
         $email_data = array(
