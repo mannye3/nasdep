@@ -224,3 +224,7 @@ Route::namespace("Admin")->prefix('admin')->group(function(){
 //     // Route::get('post/{id}/delete', 'AuthorController@deletePost')->name('deletePost');
 //     Route::get('posts', 'AuthorController@posts')->name('authorPosts');
 //     });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

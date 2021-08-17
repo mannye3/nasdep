@@ -8,9 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Mail;
-// use App\Models\State;
-use App\Models\UserRequest;
+
 class RegisterController extends Controller
 {
     /*
@@ -31,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo ='/dashboard';
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -52,16 +50,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'fname' => 'required|string|max:255',
-            'lname' => 'required|string|max:255',
-            'gender' => 'required|string|max:255',
-            'country_id' => 'required|string|max:255',
-            'state_id' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'numeric', 'min:12', 'unique:users'],
         ]);
     }
 
@@ -71,87 +62,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-
     protected function create(array $data)
     {
-        $user = User::create([
-                   'fname' => $data['fname'],
-                   'lname' => $data['lname'],
-                   'gender' => $data['gender'],
-                   'country_id' => $data['country_id'],
-                   'state_id' => $data['state_id'],
-                   'type' => $data['type'],
-                   'role' => $data['role'],
-                   'email' => $data['email'],
-                   'password' => Hash::make($data['password']),
-                    'phone'=> $data['phone']
-               ]);
-
-               $user_id = $user->id;
-               $company = $data['company'];
-               $role = $data['role'];
-               $status = 'pending';
-
-
-               $user_request = new UserRequest();
-
-                        $user_request->user_id = $user_id;
-                        $user_request->company = $company;
-                        $user_request->role = $role;
-                        $user_request->status = $status;
-
-                        $user_request->save();
-
-        // email data
-        $email_data = array(
-            'fname' => $data['fname'],
-            'lname' => $data['lname'],
+        return User::create([
+            'name' => $data['name'],
             'email' => $data['email'],
-        );
-
-
-        if($data['role'] == "Enterprise Rep"){
-            Mail::send('emails.er', $email_data, function ($message) use ($email_data) {
-                $message->to($email_data['email'], $email_data['fname'], $email_data['lname'])
-                    ->subject('NASDEP ENTERPRISE FORM')
-                    ->from('info@nasdep.com', 'NASDEP');
-            });
-            }
-
-
-            if($data['role'] == "Investor Rep"){
-                Mail::send('emails.ir', $email_data, function ($message) use ($email_data) {
-                    $message->to($email_data['email'], $email_data['fname'], $email_data['lname'])
-                        ->subject('NASDEP Investor FORM')
-                        ->from('info@nasdep.com', 'NASDEP');
-                });
-                }
-
-                if($data['role'] == "Accredited Investor"){
-                    Mail::send('emails.ai', $email_data, function ($message) use ($email_data) {
-                        $message->to($email_data['email'], $email_data['fname'], $email_data['lname'])
-                            ->subject('NASDEP Accredited Investor FORM')
-                            ->from('info@nasdep.com', 'NASDEP');
-                    });
-                    }
-
-                    if($data['role'] == "Incubator"){
-                        Mail::send('emails.ic', $email_data, function ($message) use ($email_data) {
-                            $message->to($email_data['email'], $email_data['fname'], $email_data['lname'])
-                                ->subject('NASDEP Incubator FORM')
-                                ->from('info@nasdep.com', 'NASDEP');
-                        });
-                        }
-
-
-
-
-
-        // send email with the template
-
-
-        return $user;
+            'password' => Hash::make($data['password']),
+        ]);
     }
-
-
 }
